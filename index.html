@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Card Slider</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <input type="radio" name="position" checked />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+    <input type="radio" name="position" />
+
+    <main id="carousel">
+      <div class="item"><video src="/videos/1.mp4" loop></video></div>
+      <div class="item"><video src="/videos/2.mp4" loop></video></div>
+      <div class="item"><video src="/videos/3.mp4" loop></video></div>
+      <div class="item"><video src="/videos/4.mp4" loop></video></div>
+      <div class="item"><video src="/videos/5.mp4" loop></video></div>
+      <div class="item"><video src="/videos/6.mp4" loop></video></div>
+      <div class="item"><video src="/videos/7.mp4" loop></video></div>
+      <div class="item"><video src="/videos/8.webm" loop></video></div>
+      <div class="item"><video src="/videos/9.webm" loop></video></div>
+      <div class="item"><video src="/videos/10.mp4" loop></video></div>
+      <div class="item"><video src="/videos/11.mp4" loop></video></div>
+      <div class="item"><video src="/videos/12.mp4" loop></video></div>
+      <div class="item"><video src="/videos/13.mp4" loop></video></div>
+      <div class="item"><video src="/videos/14.mp4" loop></video></div>
+      <div class="item"><video src="/videos/15.mp4" loop></video></div>
+      <div class="item"><video src="/videos/16.mp4" loop></video></div>
+      <div class="item"><video src="/videos/17.mp4" loop></video></div>
+    </main>
+
+    <script>
+      // Функция для смены состояния checked у радиокнопок
+      // Получаем все радиокнопки и видеоэлементы
+      const radios = document.querySelectorAll('input[name="position"]');
+      const videos = document.querySelectorAll("main#carousel .item video");
+
+      // Функция для смены checked состояния у радиокнопок и управления видео
+      function changeCheckedRadioAndPlayVideo() {
+        // Находим текущую выбранную радиокнопку
+        let checkedRadio = Array.from(radios).find((radio) => radio.checked);
+
+        // Находим индекс текущей выбранной радиокнопки
+        let currentIndex = Array.from(radios).indexOf(checkedRadio);
+
+        // Убираем checked с текущей радиокнопки
+        checkedRadio.checked = false;
+
+        // Переходим к следующей радиокнопке, если это последняя, то возвращаемся к первой
+        let nextIndex = (currentIndex + 1) % radios.length;
+        radios[nextIndex].checked = true;
+
+        // Останавливаем все видео
+        videos.forEach((video) => {
+          video.pause();
+          video.removeAttribute("autoplay");
+        });
+
+        // Включаем текущее видео
+        const currentVideo = videos[nextIndex];
+        currentVideo.setAttribute("autoplay", true);
+        currentVideo.play();
+      }
+
+      // Устанавливаем интервал для смены видео каждые 3 секунды
+      // setInterval(changeCheckedRadioAndPlayVideo, 3000);
+    </script>
+  </body>
+</html>
